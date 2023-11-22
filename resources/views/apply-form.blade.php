@@ -12,40 +12,41 @@
           <path d="M4.98 3.5c0 1.381-1.11 2.5-2.48 2.5s-2.48-1.119-2.48-2.5c0-1.38 1.11-2.5 2.48-2.5s2.48 1.12 2.48 2.5zm.02 4.5h-5v16h5v-16zm7.982 0h-4.968v16h4.969v-8.399c0-4.67 6.029-5.052 6.029 0v8.399h4.988v-10.131c0-7.88-8.922-7.593-11.018-3.714v-2.155z" />
         </svg>
       </button> Applying With LinkedIn </a>
-    <form action="" class="space-y-3">
+    <form action="{{route('apply-form-submit')}}" method="POST" class="space-y-3" enctype="multipart/form-data">@csrf
+      <input type="hidden" value="{{request()->input('JobPostID') }}" name="JobPostID">
       <div>
         <label for="" class="label-class" required>Email*</label>
-        <input type="email" class="input-class">
+        <input type="email" class="input-class" name="Email">
       </div>
       <div>
         <label for="" class="label-class" required>Full Name *</label>
-        <input type="text" class="input-class">
+        <input type="text" class="input-class" name="FullName">
       </div>
       <div>
         <label for="" class="label-class" required>Phone number *</label>
-        <input type="number" class="input-class">
+        <input type="number" class="input-class" name="PhoneNumber">
       </div>
       <div>
         <label for="" class="label-class">Location</label>
-        <input type="text" class="input-class">
+        <input type="text" class="input-class" name="Location">
       </div>
       <div>
         <label for="" class="label-class">Current role title (optional)</label>
-        <input type="text" class="input-class">
+        <input type="text" class="input-class" name="CurrentRole">
       </div>
       <div class="flex flex-col">
         <label for="" class="label-class">Resume *</label>
         <label class="input-class h-20 p-3 space-y-2.5">
-          <input type="file" class="text-xs file:bg-[#ffffff] file:border-bodyText file:border-opacity-20 file:rounded-lg file:text-xs file:text-bodyText">
+          <input type="file" class="text-xs file:bg-[#ffffff] file:border-bodyText file:border-opacity-20 file:rounded-lg file:text-xs file:text-bodyText" name="CoverLetter">
           <p class="text-xs">Types: .pdf, .doc, .docx Max file size: 5 MB</p>
         </label>
       </div>
       <div>
         <label for="" class="label-class ">Cover letter (optional)</label>
-        <input type="text" class="input-class h-24">
+        <input type="text" class="input-class h-24" name="CoverLetterOptional">
       </div>
       <div class="items-center">
-        <input type="checkbox" name="" id="alert">
+        <input type="checkbox" value="1" name="AlertForFutureJobs" id="alert">
         <label for="alert" class="label-class">I'd like to receive related job alerts</label>
       </div>
       <div>

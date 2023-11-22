@@ -100,126 +100,64 @@
         </div>
       </div>
       <div class="space-y-3 w-full">
+        @foreach ($employer_data as $employer)
         <div class="flex justify-between items-center w-full h-44 rounded-xl shadow-custom px-8  gap-9">
           <div class="flex justify-start items-start gap-2">
-            <div class="w-[82px] h-[73px] bg-[#EBEBEB] rounded-xl"></div>
+            <div class="w-[82px] h-[73px] bg-[#EBEBEB] rounded-xl"><img class="w-[80px] h-[70px]" src="{{ asset('src/upload_image/'.$employer->Logo) }}" alt=""></div>
             <div class="w-48 ml-8">
               <div class="space-y-1 border-b border-[#A7A7A7] pb-3 mb-2">
-                <h4 class="text-base text-bodyText">Google in corporation</h4>
+                <h4 class="text-base text-bodyText">{{$employer->CompanyName}}</h4>
               </div>
               <div class="">
                 <p class="text-xs text-bodyText">Location</p>
-                <p class="text-xs text-bodyText">WFA, Remote</p>
+                <p class="text-xs text-bodyText">{{$employer->Location}}</p>
               </div>
             </div>
           </div>
+          <form action="{{route('employer')}}" method="POST">@csrf
+          <input type="hidden" name="id" value="{{$employer->EmployerID}}">
           <button class="btn-secondary text-sm hFMV">
             <svg fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="xl:hidden w-6 h-6">
               <path stroke-linecap="round" stroke-linejoin="round" d="M17.982 18.725A7.488 7.488 0 0012 15.75a7.488 7.488 0 00-5.982 2.975m11.963 0a9 9 0 10-11.963 0m11.963 0A8.966 8.966 0 0112 21a8.966 8.966 0 01-5.982-2.275M15 9.75a3 3 0 11-6 0 3 3 0 016 0z" />
             </svg>
             <span class="hidden xl:block">View Profile</span>
-          </button>
+          </button></form>
         </div>
-        <div class="flex justify-between items-center w-full h-44 rounded-xl shadow-custom px-8  gap-9">
-          <div class="flex justify-start items-start gap-2">
-            <div class="w-[82px] h-[73px] bg-[#EBEBEB] rounded-xl"></div>
-            <div class="w-48 ml-8">
-              <div class="space-y-1 border-b border-[#A7A7A7] pb-3 mb-2">
-                <h4 class="text-base text-bodyText">Google in corporation</h4>
-              </div>
-              <div class="">
-                <p class="text-xs text-bodyText">Location</p>
-                <p class="text-xs text-bodyText">WFA, Remote</p>
-              </div>
-            </div>
-          </div>
-          <button class="btn-secondary text-sm hFMV">
-            <svg fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="xl:hidden w-6 h-6">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M17.982 18.725A7.488 7.488 0 0012 15.75a7.488 7.488 0 00-5.982 2.975m11.963 0a9 9 0 10-11.963 0m11.963 0A8.966 8.966 0 0112 21a8.966 8.966 0 01-5.982-2.275M15 9.75a3 3 0 11-6 0 3 3 0 016 0z" />
-            </svg>
-            <span class="hidden xl:block">View Profile</span>
-          </button>
-        </div>
-        <div class="flex justify-between items-center w-full h-44 rounded-xl shadow-custom px-8  gap-9">
-          <div class="flex justify-start items-start gap-2">
-            <div class="w-[82px] h-[73px] bg-[#EBEBEB] rounded-xl"></div>
-            <div class="w-48 ml-8">
-              <div class="space-y-1 border-b border-[#A7A7A7] pb-3 mb-2">
-                <h4 class="text-base text-bodyText">Google in corporation</h4>
-              </div>
-              <div class="">
-                <p class="text-xs text-bodyText">Location</p>
-                <p class="text-xs text-bodyText">WFA, Remote</p>
-              </div>
-            </div>
-          </div>
-          <button class="btn-secondary text-sm hFMV">
-            <svg fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="xl:hidden w-6 h-6">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M17.982 18.725A7.488 7.488 0 0012 15.75a7.488 7.488 0 00-5.982 2.975m11.963 0a9 9 0 10-11.963 0m11.963 0A8.966 8.966 0 0112 21a8.966 8.966 0 01-5.982-2.275M15 9.75a3 3 0 11-6 0 3 3 0 016 0z" />
-            </svg>
-            <span class="hidden xl:block">View Profile</span>
-          </button>
-        </div>
-        <div class="flex justify-between items-center w-full h-44 rounded-xl shadow-custom px-8  gap-9">
-          <div class="flex justify-start items-start gap-2">
-            <div class="w-[82px] h-[73px] bg-[#EBEBEB] rounded-xl"></div>
-            <div class="w-48 ml-8">
-              <div class="space-y-1 border-b border-[#A7A7A7] pb-3 mb-2">
-                <h4 class="text-base text-bodyText">Google in corporation</h4>
-              </div>
-              <div class="">
-                <p class="text-xs text-bodyText">Location</p>
-                <p class="text-xs text-bodyText">WFA, Remote</p>
-              </div>
-            </div>
-          </div>
-          <button class="btn-secondary text-sm hFMV">
-            <svg fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="xl:hidden w-6 h-6">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M17.982 18.725A7.488 7.488 0 0012 15.75a7.488 7.488 0 00-5.982 2.975m11.963 0a9 9 0 10-11.963 0m11.963 0A8.966 8.966 0 0112 21a8.966 8.966 0 01-5.982-2.275M15 9.75a3 3 0 11-6 0 3 3 0 016 0z" />
-            </svg>
-            <span class="hidden xl:block">View Profile</span>
-          </button>
-        </div>
-        <div class="flex justify-between items-center w-full h-44 rounded-xl shadow-custom px-8  gap-9">
-          <div class="flex justify-start items-start gap-2">
-            <div class="w-[82px] h-[73px] bg-[#EBEBEB] rounded-xl"></div>
-            <div class="w-48 ml-8">
-              <div class="space-y-1 border-b border-[#A7A7A7] pb-3 mb-2">
-                <h4 class="text-base text-bodyText">Google in corporation</h4>
-              </div>
-              <div class="">
-                <p class="text-xs text-bodyText">Location</p>
-                <p class="text-xs text-bodyText">WFA, Remote</p>
-              </div>
-            </div>
-          </div>
-          <button class="btn-secondary text-sm hFMV">
-            <svg fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="xl:hidden w-6 h-6">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M17.982 18.725A7.488 7.488 0 0012 15.75a7.488 7.488 0 00-5.982 2.975m11.963 0a9 9 0 10-11.963 0m11.963 0A8.966 8.966 0 0112 21a8.966 8.966 0 01-5.982-2.275M15 9.75a3 3 0 11-6 0 3 3 0 016 0z" />
-            </svg>
-            <span class="hidden xl:block">View Profile</span>
-          </button>
-        </div>
-        <div class="flex justify-between items-center w-full h-44 rounded-xl shadow-custom px-8  gap-9">
-          <div class="flex justify-start items-start gap-2">
-            <div class="w-[82px] h-[73px] bg-[#EBEBEB] rounded-xl"></div>
-            <div class="w-48 ml-8">
-              <div class="space-y-1 border-b border-[#A7A7A7] pb-3 mb-2">
-                <h4 class="text-base text-bodyText">Google in corporation</h4>
-              </div>
-              <div class="">
-                <p class="text-xs text-bodyText">Location</p>
-                <p class="text-xs text-bodyText">WFA, Remote</p>
-              </div>
-            </div>
-          </div>
-          <button class="btn-secondary text-sm hFMV">
-            <svg fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="xl:hidden w-6 h-6">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M17.982 18.725A7.488 7.488 0 0012 15.75a7.488 7.488 0 00-5.982 2.975m11.963 0a9 9 0 10-11.963 0m11.963 0A8.966 8.966 0 0112 21a8.966 8.966 0 01-5.982-2.275M15 9.75a3 3 0 11-6 0 3 3 0 016 0z" />
-            </svg>
-            <span class="hidden xl:block">View Profile</span>
-          </button>
-        </div>
+        @endforeach
+        <div class="pagination mt-5">
+          @if ($employer_data->onFirstPage())
+              <button disabled>&laquo;</button>
+          @else
+              <a href="{{ $employer_data->appends(request()->except('page'))->previousPageUrl() }}">&laquo;</a>
+          @endif
+      
+          @php
+              $start = max(1, $employer_data->currentPage() - 5);
+              $end = min($start + 9, $employer_data->lastPage());
+          @endphp
+      
+          @if ($start > 1)
+              <span class="px-2">...</span>
+          @endif
+      
+          @for ($i = $start; $i <= $end; $i++)
+              @if ($i == $employer_data->currentPage())
+                  <button class="active">{{ $i }}</button>
+              @else
+                  <a href="{{ $employer_data->appends(request()->except('page'))->url($i) }}">{{ $i }}</a>
+              @endif
+          @endfor
+      
+          @if ($end < $employer_data->lastPage())
+              <span class="px-2">...</span>
+          @endif
+      
+          @if ($employer_data->hasMorePages())
+              <a href="{{ $employer_data->appends(request()->except('page'))->nextPageUrl() }}">&raquo;</a>
+          @else
+              <button disabled>&raquo;</button>
+          @endif
+      </div>
       </div>
     </div>
 </main>

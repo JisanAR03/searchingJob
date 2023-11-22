@@ -8,12 +8,41 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Inter&family=Poppins:wght@400;500;600;700&family=Roboto&display=swap" rel="stylesheet"> 
     <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.13.2/themes/base/jquery-ui.min.css" integrity="sha512-ELV+xyi8IhEApPS/pSj66+Jiw+sOT1Mqkzlh8ExXihe4zfqbWkxPRi8wptXIO9g73FSlhmquFlUOuMSoXz5IRw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/css/select2.min.css" integrity="sha512-arEjGlJIdHpZzNfZD2IidQjDZ+QY9r4VFJIm2M/DhXLjvvPyXFj+cIotmo0DLgvL3/DOlIaEDwzEiClEPQaAFQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script src="https://cdn.jsdelivr.net/npm/alpinejs@2.8.2/dist/alpine.js"></script>
+    <script src="https://js.pusher.com/7.2/pusher.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/laravel-echo@1.11.0/dist/echo.min.js"></script>
+
+    <script>
+  
+      // Enable pusher logging - don't include this in production
+      Pusher.logToConsole = true;
+  
+      var pusher = new Pusher('375a6733639011335ca3', {
+        cluster: 'ap2'
+      });
+  
+      var channel = pusher.subscribe('chat_sys');
+      channel.bind('chat_syss', function(data) {
+        alert(JSON.stringify(data));
+      });
+    </script>
     @vite('resources/css/app.css')
   </head>
   <body>
+    @if(session('error'))
+    <div x-data="{ show: true }" x-show="show" x-init="setTimeout(() => show = false, 3000)" class="bg-red-500 text-white px-4 py-2 rounded-md">
+      {{ session('error') }}
+    </div>
+    @endif
+
+    @if(session('success'))
+    <div x-data="{ show: true }" x-show="show" x-init="setTimeout(() => show = false, 3000)" class="bg-green-500 text-white px-4 py-2 rounded-md">
+      {{ session('success') }}
+    </div>
+    @endif
   <header id="header" class="bg-primary relative">
     <!-- nav menu -->
     <!-- <div class="bg-white bg-opacity-75 shadow-md  w-full relative z-20"> -->
@@ -45,6 +74,22 @@
             </ul>
           </nav>
           <!-- dropdown -->
+          @if(session()->has('employer_session') || session()->has('seeker_session'))
+          <nav class="md:space-x-2 lg:space-x-8 flex flex-col md:flex-row items-center justify-center space-y-8 md:space-y-0">
+            <div class="dropdown">
+              <button class="forEmployer dropbtn flex items-center text-[22px] md:text-base font-medium md:font-normal sCLSFDD"> Profile Detail <svg   fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="ml-2 h-5 w-5 font-bold">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5"/>
+                </svg>
+              </button>
+              <div class="employerDropdown dropdown-content">
+                <a href="@if(session()->has('seeker_session')){{route('job-seeker-my-application')}}@else{{route('employers-my-job')}}@endif">Profile</a>
+                <form action="{{route('logout')}}" method="POST">@csrf
+                  <button type="submit" class="mb-2">Logout</button>
+                </form>
+              </div>
+            </div>
+          </nav>
+          @else
           <nav class="md:space-x-2 lg:space-x-8 flex flex-col md:flex-row items-center justify-center space-y-8 md:space-y-0">
             <div class="dropdown">
               <button class="forEmployer dropbtn flex items-center text-[22px] md:text-base font-medium md:font-normal sCLSFDD"> For Employers <svg   fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="ml-2 h-5 w-5 font-bold">
@@ -67,6 +112,8 @@
               </div>
             </div>
           </nav>
+          @endif
+
         </div>
       </div>
     <!-- </div> -->
@@ -215,7 +262,9 @@
         </div>
       </div>
     </footer>
+    <script src="{{ asset('js/tinymce/tinymce.js') }}"></script>
     <script src="https://code.jquery.com/jquery-3.6.4.min.js" integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.13.2/jquery-ui.min.js" integrity="sha512-57oZ/vW8ANMjR/KQ6Be9v/+/h6bq9/l3f0Oc7vn6qMqyhvPd1cvKBRWWpzu0QoneImqr2SkmO4MSqU+RpHom3Q==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/js/select2.min.js" integrity="sha512-fZy9udcMtCbrKvLIxWhOUaH6TZYddjizBEhESeTsv1lwzXgcR6ZalhWye+BlT/KQ0KIfyjiqwce7IKKtRH29hQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
     <script src="{{asset('js/mains.js')}}" type="text/javascript"></script>
@@ -225,12 +274,87 @@
       });
   </script>
   <style>
+    .select2-hidden-accessible {
+    max-width: 20rem;
+    }
     .select2-container .select2-selection--single {
     border: none !important;
     outline: none !important;
     box-shadow: none !important;
+    }
+
+    .select2-results__option {
+  display: flex !important;
+  align-items: center !important;
+  width: 100% !important;
+  padding: 10px !important;
+  transition: background-color 0.3s ease !important;
+  font-family: Arial, sans-serif !important;
+  font-size: 14px !important;
+  color: #333 !important;
 }
 
+.select2-results__option:hover {
+  background-color: #f5f5f5 !important;
+  cursor: pointer !important;
+}
+
+.select2-container--default .select2-results__option.select2-results__option--highlighted {
+  background-color: #d3d3d3 !important;
+}
+
+.select2-results__option .select2-results__option-text {
+  flex: 1 !important;
+  margin-left: 10px !important;
+}
+
+.select2-results__option .select2-results__option-icon {
+  width: 20px !important;
+  height: 20px !important;
+  margin-right: 10px !important;
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.pagination button,
+.pagination a {
+  border: 1px solid #ddd;
+  background-color: #f9f9f9;
+  color: #333;
+  padding: 8px 12px;
+  text-decoration: none;
+  transition: background-color 0.3s;
+}
+
+.pagination button:hover,
+.pagination a:hover {
+  background-color: #e9e9e9;
+}
+
+.pagination button.active {
+  background-color: #ccc;
+  cursor: default;
+}
+.selected-skill {
+        background-color: #e2e8f0;
+        display: inline-block;
+        padding: 5px;
+        margin-right: 5px;
+        margin-bottom: 5px;
+        border-radius: 5px;
+    }
+
+    .selected-skill .remove-skill {
+        cursor: pointer;
+        color: red;
+        font-weight: bold;
+        margin-left: 5px;
+    }
   </style>
+  @yield('scripts')
   </body>
 </html>

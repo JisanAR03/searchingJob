@@ -156,6 +156,7 @@
         </div>
       </div>
       <div class="space-y-8 w-full">
+        @foreach ($job_data as $job)
         <div class="relative flex justify-center items-center w-full h-40 rounded-xl shadow-custom px-4 lg:px-8 py-4 gap-8 lg:gap-9">
           <svg   fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4 absolute top-4 right-3.5 text-bodyText stroke-2">
             <path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" />
@@ -165,183 +166,85 @@
             <div class="flex justify-start items-start gap-2">
               <div class="w-full xl:w-[400px]">
                 <div class="space-y-1 border-b border-[#A7A7A7] pb-4 mb-1">
-                  <h5 class="text-base">Senior developer Engineer</h5>
-                  <p class="text-xs text-bodyText">Posted 15 hours ago by hatch</p>
+                  <a href="{{route('job', ['id' => $job->JobPostID])}}">
+                  <h5 class="text-base">{{$job->JobTitle}}</h5></a>
+                  @php
+                    $postDate = strtotime($job->PostDate);
+                    $now = time();
+
+                    $seconds = $now - $postDate;
+                    $minutes = floor($seconds / 60);
+                    $hours = floor($minutes / 60);
+                    $days = floor($hours / 24);
+
+                    if ($days > 0) {
+                        $timeElapsed = $days . ' day(s) ago';
+                    } elseif ($hours > 0) {
+                        $timeElapsed = $hours . ' hour(s) ago';
+                    } elseif ($minutes > 0) {
+                        $timeElapsed = $minutes . ' minute(s) ago';
+                    } else {
+                        $timeElapsed = 'Just now';
+                    }
+                @endphp
+                  <p class="text-xs text-bodyText">Posted {{$timeElapsed}}</p>
                 </div>
                 <div class=" hidden md:flex divide-x divide-[#A7A7A7]">
                   <div class="w-20 lg:w-28 py-1">
                     <p class="text-xs text-bodyText">Location</p>
-                    <p class="text-xs text-bodyText">WFA,Remote</p>
+                    <p class="text-xs text-bodyText">{{$job->JobLocation}}</p>
                   </div>
                   <div class="w-20 lg:w-28 py-1 px-2 lg:px-3">
                     <p class="text-xs text-bodyText">Category</p>
-                    <p class="text-xs text-button">Category Link</p>
+                    <p class="text-xs text-button">{{$job->Category}}</p>
                   </div>
                   <div class="w-20 lg:w-28 py-1 pl-2 lg:pl-4">
                     <p class="text-xs text-bodyText">Compensation</p>
-                    <p class="text-xs text-bodyText">$60k - $90k</p>
+                    <p class="text-xs text-bodyText">{{$job->Compensation}}</p>
                   </div>
                 </div>
               </div>
             </div>
           </div>
-          <button class="btn-secondary text-sm w-28 md:mt-16">Apply Now</button>
+          <form action="{{route('apply-form-post')}}" method="GET">
+          <input type="hidden" name="JobPostID" value="{{$job->JobPostID}}">
+          <button @if(session('employer_session')) disabled @endif class="btn-secondary text-sm w-28 md:mt-16">Apply Now</button></form>
         </div>
-        <div class="relative flex justify-center items-center w-full h-40 rounded-xl shadow-custom px-4 lg:px-8 py-4 gap-8 lg:gap-9">
-          <svg   fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4 absolute top-4 right-3.5 text-bodyText stroke-2">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" />
-          </svg>
-          <div class="flex justify-center items-center gap-5">
-            <div class="w-[74px] h-[65px] bg-[#EBEBEB] rounded-xl"></div>
-            <div class="flex justify-start items-start gap-2">
-              <div class="w-full xl:w-[400px]">
-                <div class="space-y-1 border-b border-[#A7A7A7] pb-4 mb-1">
-                  <h5 class="text-base">Senior developer Engineer</h5>
-                  <p class="text-xs text-bodyText">Posted 15 hours ago by hatch</p>
-                </div>
-                <div class=" hidden md:flex divide-x divide-[#A7A7A7]">
-                  <div class="w-20 lg:w-28 py-1">
-                    <p class="text-xs text-bodyText">Location</p>
-                    <p class="text-xs text-bodyText">WFA,Remote</p>
-                  </div>
-                  <div class="w-20 lg:w-28 py-1 px-2 lg:px-3">
-                    <p class="text-xs text-bodyText">Category</p>
-                    <p class="text-xs text-button">Category Link</p>
-                  </div>
-                  <div class="w-20 lg:w-28 py-1 pl-2 lg:pl-4">
-                    <p class="text-xs text-bodyText">Compensation</p>
-                    <p class="text-xs text-bodyText">$60k - $90k</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <button class="btn-secondary text-sm w-28 md:mt-16">Apply Now</button>
-        </div>
-        <div class="relative flex justify-center items-center w-full h-40 rounded-xl shadow-custom px-4 lg:px-8 py-4 gap-8 lg:gap-9">
-          <svg   fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4 absolute top-4 right-3.5 text-bodyText stroke-2">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" />
-          </svg>
-          <div class="flex justify-center items-center gap-5">
-            <div class="w-[74px] h-[65px] bg-[#EBEBEB] rounded-xl"></div>
-            <div class="flex justify-start items-start gap-2">
-              <div class="w-full xl:w-[400px]">
-                <div class="space-y-1 border-b border-[#A7A7A7] pb-4 mb-1">
-                  <h5 class="text-base">Senior developer Engineer</h5>
-                  <p class="text-xs text-bodyText">Posted 15 hours ago by hatch</p>
-                </div>
-                <div class=" hidden md:flex divide-x divide-[#A7A7A7]">
-                  <div class="w-20 lg:w-28 py-1">
-                    <p class="text-xs text-bodyText">Location</p>
-                    <p class="text-xs text-bodyText">WFA,Remote</p>
-                  </div>
-                  <div class="w-20 lg:w-28 py-1 px-2 lg:px-3">
-                    <p class="text-xs text-bodyText">Category</p>
-                    <p class="text-xs text-button">Category Link</p>
-                  </div>
-                  <div class="w-20 lg:w-28 py-1 pl-2 lg:pl-4">
-                    <p class="text-xs text-bodyText">Compensation</p>
-                    <p class="text-xs text-bodyText">$60k - $90k</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <button class="btn-secondary text-sm w-28 md:mt-16">Apply Now</button>
-        </div>
-        <div class="relative flex justify-center items-center w-full h-40 rounded-xl shadow-custom px-4 lg:px-8 py-4 gap-8 lg:gap-9">
-          <svg   fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4 absolute top-4 right-3.5 text-bodyText stroke-2">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" />
-          </svg>
-          <div class="flex justify-center items-center gap-5">
-            <div class="w-[74px] h-[65px] bg-[#EBEBEB] rounded-xl"></div>
-            <div class="flex justify-start items-start gap-2">
-              <div class="w-full xl:w-[400px]">
-                <div class="space-y-1 border-b border-[#A7A7A7] pb-4 mb-1">
-                  <h5 class="text-base">Senior developer Engineer</h5>
-                  <p class="text-xs text-bodyText">Posted 15 hours ago by hatch</p>
-                </div>
-                <div class=" hidden md:flex divide-x divide-[#A7A7A7]">
-                  <div class="w-20 lg:w-28 py-1">
-                    <p class="text-xs text-bodyText">Location</p>
-                    <p class="text-xs text-bodyText">WFA,Remote</p>
-                  </div>
-                  <div class="w-20 lg:w-28 py-1 px-2 lg:px-3">
-                    <p class="text-xs text-bodyText">Category</p>
-                    <p class="text-xs text-button">Category Link</p>
-                  </div>
-                  <div class="w-20 lg:w-28 py-1 pl-2 lg:pl-4">
-                    <p class="text-xs text-bodyText">Compensation</p>
-                    <p class="text-xs text-bodyText">$60k - $90k</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <button class="btn-secondary text-sm w-28 md:mt-16">Apply Now</button>
-        </div>
-        <div class="relative flex justify-center items-center w-full h-40 rounded-xl shadow-custom px-4 lg:px-8 py-4 gap-8 lg:gap-9">
-          <svg   fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4 absolute top-4 right-3.5 text-bodyText stroke-2">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" />
-          </svg>
-          <div class="flex justify-center items-center gap-5">
-            <div class="w-[74px] h-[65px] bg-[#EBEBEB] rounded-xl"></div>
-            <div class="flex justify-start items-start gap-2">
-              <div class="w-full xl:w-[400px]">
-                <div class="space-y-1 border-b border-[#A7A7A7] pb-4 mb-1">
-                  <h5 class="text-base">Senior developer Engineer</h5>
-                  <p class="text-xs text-bodyText">Posted 15 hours ago by hatch</p>
-                </div>
-                <div class=" hidden md:flex divide-x divide-[#A7A7A7]">
-                  <div class="w-20 lg:w-28 py-1">
-                    <p class="text-xs text-bodyText">Location</p>
-                    <p class="text-xs text-bodyText">WFA,Remote</p>
-                  </div>
-                  <div class="w-20 lg:w-28 py-1 px-2 lg:px-3">
-                    <p class="text-xs text-bodyText">Category</p>
-                    <p class="text-xs text-button">Category Link</p>
-                  </div>
-                  <div class="w-20 lg:w-28 py-1 pl-2 lg:pl-4">
-                    <p class="text-xs text-bodyText">Compensation</p>
-                    <p class="text-xs text-bodyText">$60k - $90k</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <button class="btn-secondary text-sm w-28 md:mt-16">Apply Now</button>
-        </div>
-        <div class="relative flex justify-center items-center w-full h-40 rounded-xl shadow-custom px-4 lg:px-8 py-4 gap-8 lg:gap-9">
-          <svg   fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4 absolute top-4 right-3.5 text-bodyText stroke-2">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" />
-          </svg>
-          <div class="flex justify-center items-center gap-5">
-            <div class="w-[74px] h-[65px] bg-[#EBEBEB] rounded-xl"></div>
-            <div class="flex justify-start items-start gap-2">
-              <div class="w-full xl:w-[400px]">
-                <div class="space-y-1 border-b border-[#A7A7A7] pb-4 mb-1">
-                  <h5 class="text-base">Senior developer Engineer</h5>
-                  <p class="text-xs text-bodyText">Posted 15 hours ago by hatch</p>
-                </div>
-                <div class=" hidden md:flex divide-x divide-[#A7A7A7]">
-                  <div class="w-20 lg:w-28 py-1">
-                    <p class="text-xs text-bodyText">Location</p>
-                    <p class="text-xs text-bodyText">WFA,Remote</p>
-                  </div>
-                  <div class="w-20 lg:w-28 py-1 px-2 lg:px-3">
-                    <p class="text-xs text-bodyText">Category</p>
-                    <p class="text-xs text-button">Category Link</p>
-                  </div>
-                  <div class="w-20 lg:w-28 py-1 pl-2 lg:pl-4">
-                    <p class="text-xs text-bodyText">Compensation</p>
-                    <p class="text-xs text-bodyText">$60k - $90k</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <button class="btn-secondary text-sm w-28 md:mt-16">Apply Now</button>
-        </div>
+        @endforeach
+        <div class="pagination mt-5">
+          @if ($job_data->onFirstPage())
+              <button disabled>&laquo;</button>
+          @else
+              <a href="{{ $job_data->appends(request()->except('page'))->previousPageUrl() }}">&laquo;</a>
+          @endif
+      
+          @php
+              $start = max(1, $job_data->currentPage() - 5);
+              $end = min($start + 9, $job_data->lastPage());
+          @endphp
+      
+          @if ($start > 1)
+              <span class="px-2">...</span>
+          @endif
+      
+          @for ($i = $start; $i <= $end; $i++)
+              @if ($i == $job_data->currentPage())
+                  <button class="active">{{ $i }}</button>
+              @else
+                  <a href="{{ $job_data->appends(request()->except('page'))->url($i) }}">{{ $i }}</a>
+              @endif
+          @endfor
+      
+          @if ($end < $job_data->lastPage())
+              <span class="px-2">...</span>
+          @endif
+      
+          @if ($job_data->hasMorePages())
+              <a href="{{ $job_data->appends(request()->except('page'))->nextPageUrl() }}">&raquo;</a>
+          @else
+              <button disabled>&raquo;</button>
+          @endif
+      </div>
       </div>
     </div>
   </div>

@@ -122,7 +122,12 @@ jQuery(document).ready(function() {
 	jQuery('.showIcon').hide()
 	jQuery('.iconDiv').each(function() {
 		jQuery(this).on('click', function() {
-			jQuery(this).find('.showIcon').toggle();
+			var icon = jQuery(this).find('.showIcon');
+			if (icon.css('display') === 'none') {
+			icon.css('display', 'flex');
+			} else {
+			icon.css('display', 'none');
+			}
 		})
 	})
 	jQuery('.message-box').hide();

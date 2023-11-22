@@ -23,12 +23,14 @@
             <div class="flex justify-between items-end bg-[#FAFAFA] w-full h-[267px] px-10 py-20 rounded-2xl fCFMV tRPFMV">
               <div class="flex flex-col justify-center items-start aSNFMV">
                 <img src="/src/img/signature.png" alt="" srcset="" class="w-[67px] h-[67ppx]">
-                <h6 class="text-lg">Senior Devops Engineer <span class="text-button">(Remote)</span></h6>
-                <p class="text-sm"><span class="text-[#007BFF]">Writesonic</span> <span>WFA, Remote</span></p>
-                <p>By <span class="text-[#007BFF]">Writesonic</span> </p>
+                <h6 class="text-lg">{{$jobPostData->JobTitle}} <span class="text-button">({{$jobPostData->JobLocation}})</span></h6>
+                <p class="text-sm"><span class="text-[#007BFF]">{{$employer_data->CompanyName}}</span> <span>, {{$employer_data->Location}}</span></p>
+                <p>By <span class="text-[#007BFF]">{{$employer_data->CompanyName}}</span> </p>
               </div>
               <div class="flex justify-center items-center gap-3 lg:gap-9 aSNFMV nJCFMV">
-                <button class="bg-button rounded-xl text-white py-2 lg:py-3 px-2 lg:px-4">Apply Now</button>
+                <form action="{{route('apply-form-post')}}" method="GET">
+                  <input type="hidden" name="JobPostID" value="{{$jobPostData->JobPostID}}">
+                  <button @if(session('employer_session')) disabled @endif class="bg-button rounded-xl text-white py-2 lg:py-3 px-2 lg:px-4">Apply Now</button></form>
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 stroke-2 text-lightText">
                   <path stroke-linecap="round" stroke-linejoin="round" d="M7.217 10.907a2.25 2.25 0 100 2.186m0-2.186c.18.324.283.696.283 1.093s-.103.77-.283 1.093m0-2.186l9.566-5.314m-9.566 7.5l9.566 5.314m0 0a2.25 2.25 0 103.935 2.186 2.25 2.25 0 00-3.935-2.186zm0-12.814a2.25 2.25 0 103.933-2.185 2.25 2.25 0 00-3.933 2.185z" />
                 </svg>
@@ -42,57 +44,51 @@
             <h5>Job Information</h5>
             <div class="space-y-1">
               <p class="text-bodyText text-xs">Job Posted Date</p>
-              <p class="font-medium text-sm">Jan 30, 2023</p>
+              <p class="font-medium text-sm">{{ date('F d, Y', strtotime($jobPostData->PostDate)) }}</p>
             </div>
             <div class="space-y-1">
               <p class="text-bodyText text-xs">Compensation (Annual in Lacs)</p>
-              <p class="font-medium text-sm">Best in the Industry</p>
+              <p class="font-medium text-sm">{{$jobPostData->Compensation}}</p>
             </div>
             <div class="space-y-1">
               <p class="text-bodyText text-xs">Location</p>
-              <p class="font-medium text-sm">Dhaka, Bamgladesh</p>
+              <p class="font-medium text-sm">{{$employer_data->Location}}</p>
             </div>
             <div class="space-y-1">
               <p class="text-bodyText text-xs">Type Of Work</p>
-              <p class="font-medium text-sm">Day shift</p>
+              <p class="font-medium text-sm">{{$jobPostData->WorkType}}</p>
             </div>
             <div class="space-y-1">
               <p class="text-bodyText text-xs">Job Location</p>
-              <p class="font-medium text-sm">Remote</p>
+              <p class="font-medium text-sm">{{$jobPostData->JobLocation}}</p>
             </div>
             <div class="space-y-1">
               <p class="text-bodyText text-xs">Category</p>
-              <p class="font-medium text-sm">Information Technology</p>
+              <p class="font-medium text-sm">{{$jobPostData->JobTitle}}</p>
             </div>
           </div>
             <div class="space-y-3 text-sm py-8">
               <div class="space-y-4">
                 <p class="text-[17px] font-semibold">Company Description</p>
-                <p class="text-sm">Company Name: Writesonic</p>
-                <p class="text-sm">Website: <a href="https://www.writesonic.com/">www.writesonic.com</a></p>
+                <p class="text-sm">Company Name: {{$employer_data->CompanyName}}</p>
+                <p class="text-sm">Website: <a href="https://{{$employer_data->WebsiteURL}}">{{$employer_data->WebsiteURL}}</a></p>
               </div>
               <p class="text-sm">About us</p>
-              <p class="text-sm">Writesonic is an AI-powered writing assistant with a mission to empower everyone in the world to write anything and publish
-                anywhere. It's like Canva for writing, with tools that simplify the process of creating, editing, and publishing articles, blog posts,
-                ads, landing pages, eCommerce product descriptions, social media posts, and many other forms of content.</p>
-              <p class="text-sm">Our customers love us, as evidenced by the 5000+ 5-star reviews on G2, TrustPilot, and Capterra.</p>
-              <p class="text-sm">Last year, we raised $2.6M from Y-Combinator, HOF Capital, and other leading Silicon Valley investors. We have since grown to
-                16 employees who work remotely and helped 300k+ professionals and businesses generate 10s of millions of pieces of content. </p>
+              <p class="text-sm">{{$employer_data->AboutCompany}}</p>
               <p class="text-sm font-semibold">Our Mission</p>
-              <ul class="list-disc list-inside space-y-2 ml-2">
+              {{-- <ul class="list-disc list-inside space-y-2 ml-2">
                 <li class="text-sm">Our mission is to empower everyone to produce high-quality and cost-effective content themselves.</li>
                 <li class="text-sm">We are dedicated to simplifying content writing so that people can focus on other important tasks, giving them more time and
                   money. This will lead to all people becoming better writers in general.</li>
-              </ul>
-              <p class="text-sm">We are looking for a Senior Devops Engineer to join our rapidly growing engineering team. The ideal candidate will have 
-                experience working in a DevOps environment, designing and implementing solutions to improve system.</p>
-              <p class="text-sm">This position requires an individual who is highly organized and able to quickly learn and apply new technologies and processes.
-                The Senior Devops Engineer will collaborate with software engineers, and other team members to ensure.</p>
-              <p class="text-sm font-semibold">Experience: 5 to 10 Years</p>
-              <p class="text-sm font-semibold">Location: Remote</p>
-              <p class="text-sm font-semibold">Role: Senior DevOps Engineer</p>
-              <h4 class="text-[20px] md:text-[24px] lg:text-[26px] font-normal">Role & Responsibilities of Senior DevOps Engineer</h4>
-              <ul class="list-disc list-inside space-y-2 ml-2">
+              </ul> --}}
+              <p class="text-sm">{{$employer_data->CompanyMission}}</p>
+              <p class="text-sm font-semibold">Experience: {{$jobPostData->Experience}} Years</p>
+              <p class="text-sm font-semibold">Location: {{$jobPostData->JobLocation}}</p>
+              <p class="text-sm font-semibold">Role: {{$jobPostData->JobTitle}}</p>
+              <h4 class="text-[20px] md:text-[24px] lg:text-[26px] font-normal">Role & Responsibilities of {{$jobPostData->JobTitle}}</h4>
+              <p class="text-[16px] font-bold">Job Description:</p>
+              <p class="text-sm">{{$jobPostData->Description}}</p>
+              {{-- <ul class="list-disc list-inside space-y-2 ml-2">
                 <li class="text-sm">Design, develop, and maintain DevOps strategies, processes, and solutions</li>
                 <li class="text-sm">Design, develop, and maintain DevOps strategies, processes, and solutions Monitor system performance and reliability, and implement strategies to improve it</li>
                 <li class="text-sm">Troubleshoot system issues and develop solutions in a timely manner</li>
@@ -162,7 +158,7 @@
                   <li class="text-sm">Bachelor's Degree</li>
                   <li class="text-sm">Post Graduate</li>
                 </ul>
-              </div>
+              </div> --}}
             </div>
           </div>
           <!-- second column -->
@@ -170,27 +166,27 @@
             <h5>Job Information</h5>
             <div class="space-y-1">
               <p class="text-bodyText text-xs">Job Posted Date</p>
-              <p class="font-medium text-sm">Jan 30, 2023</p>
+              <p class="font-medium text-sm">{{ date('F d, Y', strtotime($jobPostData->PostDate)) }}</p>
             </div>
             <div class="space-y-1">
               <p class="text-bodyText text-xs">Compensation (Annual in Lacs)</p>
-              <p class="font-medium text-sm">Best in the Industry</p>
+              <p class="font-medium text-sm">{{$jobPostData->Compensation}}</p>
             </div>
             <div class="space-y-1">
               <p class="text-bodyText text-xs">Location</p>
-              <p class="font-medium text-sm">Dhaka, Bamgladesh</p>
+              <p class="font-medium text-sm">{{$employer_data->Location}}</p>
             </div>
             <div class="space-y-1">
               <p class="text-bodyText text-xs">Type Of Work</p>
-              <p class="font-medium text-sm">Day shift</p>
+              <p class="font-medium text-sm">{{$jobPostData->WorkType}}</p>
             </div>
             <div class="space-y-1">
               <p class="text-bodyText text-xs">Job Location</p>
-              <p class="font-medium text-sm">Remote</p>
+              <p class="font-medium text-sm">{{$jobPostData->JobLocation}}</p>
             </div>
             <div class="space-y-1">
               <p class="text-bodyText text-xs">Category</p>
-              <p class="font-medium text-sm">Information Technology</p>
+              <p class="font-medium text-sm">{{$jobPostData->JobTitle}}</p>
             </div>
           </div>
         </div>

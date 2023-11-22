@@ -5,16 +5,16 @@
   <div class="bg-primary h-[500px]"></div>
   <div class="container mx-auto text-left space-y-3 p-8 md:p-14 w-11/12 md:w-[606px] shadow-custom z-30 -mt-64 bg-white rounded-lg">
     <h4 class="text-[24px] md:text-3xl">Let's create your account</h4>
-    <p class="font-roboto">Already have an account? <a href="/src/employer-login.html" class="text-[#008D96] underline">Sign in</a>
+    <p class="font-roboto">Already have an account? <a href="{{route('employers-login')}}" class="text-[#008D96] underline">Sign in</a>
     </p>
-    <form action="" class="space-y-3">
+    <form action="{{route('employers-registration')}}" method="POST" class="space-y-3">@csrf
       <div>
         <label for="" class="font-medium">Business Email</label>
-        <input type="email" class="input-class">
+        <input type="email" name="business_email" class="input-class">
       </div>
       <div>
         <label for="" class="font-medium">Password</label>
-        <input type="password" class="input-class">
+        <input type="password" name="password" class="input-class">
       </div>
       <div>
         <button class="bg-button rounded-lg text-white py-2 px-4 w-40">Continue</button>

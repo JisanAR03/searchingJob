@@ -9,20 +9,20 @@
           <h3 class="text-black font-semibold">Registration</h3>
           <p>Sign in to create and apply for jobs Email</p>
         </div>
-        <form action="" class="space-y-3">
+        <form action="{{route('job-seekers-registration')}}" method="POST" class="space-y-3">@csrf
           <div class="">
             <label for="" class="font-medium" required>Email</label>
-            <input type="email" class="input-class">
+            <input type="email" name="seeker_email" class="input-class">
           </div>
           <div>
             <label for="" class="font-medium" required>Password</label>
-            <input type="text" class="input-class">
+            <input type="password" name="password" class="input-class">
           </div>
           <div>
             <button class="bg-button rounded-xl text-white py-2 px-4 w-full">Login</button>
           </div>
         </form>
-        <p class="font-roboto text-center">Don't have an account? <a href="/src/candidate-login.html" class="text-[#008D96] underline">Sign Up</a>
+        <p class="font-roboto text-center">already have an account? <a href="{{route('job_seekers_login')}}" class="text-[#008D96] underline">Sign In</a>
         </p>
         <a class="flex justify-center w-full text-[#0077B7] border border-[#0077B7] rounded-xl py-2 cursor-pointer">
           <button type="button" data-te-ripple-init data-te-ripple-color="light" class="mr-2 inline-block rounded-sm px-1 py-1 text-xs font-medium bg-[#0077b5]  text-white ">
