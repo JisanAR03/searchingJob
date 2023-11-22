@@ -20,7 +20,7 @@
           <label for="" class="w-full md:w-60 font-medium">I am looking for (Job Category)</label>
           <input type="text" value="{{$user_data->WorkingFor}}" name="WorkingFor" class="input-class" placeholder="UI /Ux Designer">
         </div>
-        <div class="flex flex-col md:flex-row justify-start items-start w-full gap-2 md:gap-4">
+        {{-- <div class="flex flex-col md:flex-row justify-start items-start w-full gap-2 md:gap-4">
           <label for="" class="w-full md:w-60 font-medium">Profile photo</label>
           <div class="flex flex-col w-full md:w-3/5 lg:w-full xl:w-full ">
             <label class="flex flex-col ">
@@ -38,6 +38,27 @@
               <input type="file" class="opacity-0" name="ProfilePhoto" />
             </label>
             <p class="font-light text-xs text-bodyText">Make sure the photo is square , high regulation and at list 500px*500px </p>
+          </div>
+        </div> --}}
+        <div class="flex flex-col md:flex-row justify-start items-start w-full gap-2 md:gap-4">
+          <label for="" class="w-full md:w-60 font-medium">Profile photo</label>
+          <div class="flex flex-col w-full md:w-3/5 lg:w-full xl:w-full">
+            <label class="flex flex-col">
+              <div class="flex flex-col items-center justify-center input-class h-48 space-y-3">
+                <div class="p-7 border border-black opacity-20 rounded-lg">
+                  <svg class="w-12 h-12" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm12 12H4l4-8 3 6 2-4 3 6z" clip-rule="evenodd" />
+                  </svg>
+                </div>
+                <p id="file-name" class="flex pt-1 text-sm text-bodyText">@if(isset($user_data->ProfilePhoto)){{$user_data->ProfilePhoto}}@else Upload profile photo @endif
+                  <svg fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4 ml-1">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M9 8.25H7.5a2.25 2.25 0 00-2.25 2.25v9a2.25 2.25 0 002.25 2.25h9a2.25 2.25 0 002.25-2.25v-9a2.25 2.25 0 00-2.25-2.25H15m0-3l-3-3m0 0l-3 3m3-3V15" />
+                  </svg>
+                </p>
+              </div>
+              <input id="file-input" type="file" class="opacity-0" name="ProfilePhoto" />
+            </label>
+            <p class="font-light text-xs text-bodyText">Make sure the photo is square, high resolution, and at least 500px * 500px.</p>
           </div>
         </div>
         <div class="flex flex-col md:flex-row justify-around items-start md:items-center w-full gap-2 md:gap-4">
@@ -163,6 +184,17 @@
 </main>
 @section('scripts')
 <script>
+  const fileInput = document.getElementById('file-input');
+  const fileName = document.getElementById('file-name');
+
+  fileInput.addEventListener('change', (event) => {
+    const file = event.target.files[0];
+    if (file) {
+      fileName.textContent = 'File: ' + file.name;
+    } else {
+      fileName.textContent = 'Upload profile photo';
+    }
+  });
   $(document).ready(function() {
     // Retrieve the selected skills from the hidden input field
     var selectedSkills = $('#selected-skills-input').find('input[name="skill_ids[]"]');

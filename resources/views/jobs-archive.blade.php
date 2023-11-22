@@ -30,7 +30,7 @@
         <div class="space-y-6 px-10 md:px-4 lg:px-10">
           <div class="space-y-5">
             <label for="" class="font-medium" required>Search Keyword</label>
-            <input type="text" class="input-class shadow-custom border-0" placeholder="Search By Job Title Or Job ID">
+            <input name="JobName" type="text" class="input-class shadow-custom border-0" placeholder="Search By Job Title....">
           </div>
           <div class="space-y-3">
             <div class="flex justify-between items-center">
@@ -39,21 +39,30 @@
                 <path stroke-linecap="round" stroke-linejoin="round"   />
               </svg>
             </div>
-            <div>
-              <input type="checkbox" name="" id="work" class="">
+            {{-- <div>
+              <input type="checkbox" name="remote" value="remote" id="work" class="">
               <label for="work" class="text-sm text-bodyText font-light">Remote</label>
-            </div>
-            <select name="" id="" class="input-class shadow-custom border-0 font-medium text-sm text-bodyText select2">
-              <option value="">Country</option>
+            </div> --}}
+            <select name="city" id="" class="input-class shadow-custom border-0 font-medium text-sm text-bodyText select2">
+              <option value="">Select Location or Remote type</option>
+              @foreach ($city_list as $city)
+                <option value="{{$city}}">{{$city}}</option>
+              @endforeach
             </select>
-            <select name="" id="" class="input-class shadow-custom border-0 font-medium text-sm text-bodyText select2">
-              <option value="">State</option>
+            {{-- <select name="state" id="" class="input-class shadow-custom border-0 font-medium text-sm text-bodyText select2">
+              <option value="">Select State</option>
+              @foreach($state_list as $state)
+                <option value="{{$state}}">{{$state}}</option>
+              @endforeach
             </select>
-            <select name="" id="" class="input-class shadow-custom border-0 font-medium text-sm text-bodyText select2">
-              <option value="">City</option>
-            </select>
+            <select name="country" id="" class="input-class shadow-custom border-0 font-medium text-sm text-bodyText select2">
+              <option value="">Select Country</option>
+              @foreach ($country_list as $country)
+                <option value="{{$country}}">{{$country}}</option>
+              @endforeach
+            </select> --}}
           </div>
-          <div class="space-y-3">
+          {{-- <div class="space-y-3">
             <div class="flex justify-between items-center">
               <label for="" class="font-medium" required>Industry</label>
               <svg   fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class=" w-5 h-5 text-bodyText stroke-2">
@@ -63,7 +72,7 @@
             <select name="" id="" class="input-class shadow-custom border-0 my-4 font-medium text-sm text-bodyText select2">
               <option value="" class="font-medium text-sm text-bodyText">category</option>
             </select>
-          </div>
+          </div> --}}
           <div class="space-y-3">
             <div class="flex justify-between items-center">
               <label for="" class="font-medium" required>Job Category</label>
@@ -71,9 +80,28 @@
                 <path stroke-linecap="round" stroke-linejoin="round"   />
               </svg>
             </div>
-            <input type="text" class="input-class shadow-custom border-0" placeholder="Job Category">
+            <select name="JobCategory" id="" class="input-class shadow-custom border-0 my-4 font-medium text-sm text-bodyText select2">
+              <option value="" class="font-medium text-sm text-bodyText">Select Category</option>
+              @foreach ($category_list as $category)
+                <option value="{{$category}}" class="font-medium text-sm text-bodyText">{{$category}}</option>
+              @endforeach
+            </select>
           </div>
           <div class="space-y-3">
+            <div class="flex justify-between items-center">
+              <label for="" class="font-medium" required>Job Type</label>
+              <svg   fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class=" w-5 h-5 text-bodyText stroke-2">
+                <path stroke-linecap="round" stroke-linejoin="round"   />
+              </svg>
+            </div>
+            <select name="Job_Work_Type" id="" class="input-class shadow-custom border-0 my-4 font-medium text-sm text-bodyText select2">
+              <option value="" class="font-medium text-sm text-bodyText">Select Job Type</option>
+              @foreach ($work_type_list as $work_type)
+                <option value="{{$work_type}}" class="font-medium text-sm text-bodyText">{{$work_type}}</option>
+              @endforeach
+            </select>
+          </div>
+          {{-- <div class="space-y-3">
             <div class="flex justify-between items-center">
               <label for="" class="font-medium" required>Job Type</label>
               <svg   fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class=" w-5 h-5 text-bodyText stroke-2">
@@ -94,7 +122,7 @@
                 <label for="contract" class="flex items-center label-class ml-2"> Contract (0) </label>
               </div>
             </div>
-          </div>
+          </div> --}}
           <div class="space-y-3">
             <div class="flex justify-between items-center">
               <label for="" class="font-medium" required>Salary</label>
@@ -104,28 +132,24 @@
             </div>
             <div class="space-y-3">
               <div class="flex items-center">
-                <input type="checkbox" id="baseSalary1" name="baseSalary" class="" value="1">
-                <label for="baseSalary1" class="flex items-center label-class ml-2"> $60k - $90k </label>
+                <input type="radio" id="baseSalary1" name="baseSalary" class="" value="1">
+                <label for="baseSalary1" class="flex items-center label-class ml-2"> up to $1k </label>
               </div>
               <div class="flex items-center">
-                <input type="checkbox" id="baseSalary2" name="baseSalary" class="" value="1">
-                <label for="baseSalary2" class="flex items-center label-class ml-2"> $90k - $120k </label>
+                <input type="radio" id="baseSalary2" name="baseSalary" class="" value="25">
+                <label for="baseSalary2" class="flex items-center label-class ml-2"> up to $25k </label>
               </div>
               <div class="flex items-center">
-                <input type="checkbox" id="baseSalary3" name="baseSalary" class="" value="1">
-                <label for="baseSalary3" class="flex items-center label-class ml-2"> $120k - $150k </label>
+                <input type="radio" id="baseSalary3" name="baseSalary" class="" value="50">
+                <label for="baseSalary3" class="flex items-center label-class ml-2"> up to $50k </label>
               </div>
               <div class="flex items-center">
-                <input type="checkbox" id="baseSalary4" name="baseSalary" class="" value="1">
-                <label for="baseSalary4" class="flex items-center label-class ml-2"> $150k - $180k </label>
+                <input type="radio" id="baseSalary4" name="baseSalary" class="" value="75">
+                <label for="baseSalary4" class="flex items-center label-class ml-2"> up to $75k </label>
               </div>
               <div class="flex items-center">
-                <input type="checkbox" id="baseSalary5" name="baseSalary" class="" value="1">
-                <label for="baseSalary5" class="flex items-center label-class ml-2"> $180k - $210k </label>
-              </div>
-              <div class="flex items-center">
-                <input type="checkbox" id="baseSalary6" name="baseSalary" class="" value="1">
-                <label for="baseSalary6" class="flex items-center label-class ml-2"> $250k </label>
+                <input type="radio" id="baseSalary5" name="baseSalary" class="" value="100">
+                <label for="baseSalary5" class="flex items-center label-class ml-2"> up to $100k </label>
               </div>
             </div>
           </div>
@@ -139,28 +163,40 @@
       <div class="flex justify-end  mb-6">
         <div class="flex flex-col md:flex-row justify-between items-start md:items-end w-full gap-4 md:gap-0">
           <div class="flex flex-col space-y-2 fWIMV">
-            <label for="" class="text-base font-medium">Showing 1-10 of 208 result</label>
+            <label for="" class="text-base font-medium">Showing {{ $job_data->firstItem() }} - {{ $job_data->lastItem() }} of {{ $job_data->total() }} result</label>
             <button class="btn-button flex justify-center items-center w-60 h-12 fWIMV">
               <svg   fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4 rounded mr-2 stroke-2 text-white ">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75" />
               </svg> RECEIVE JOBS ALERTS </button>
           </div>
-          <div class="space-x-5 fWIMV">
-            <label for="" class="text-base font-medium">Sort By</label>
-            <select name="" id="" class="rounded-xl border border-button px-8 py-1 w-40 eWIMV select2">
-              <option value="">Date</option>
-              <option value="">Newest to Oldest</option>
-              <option value="">Oldest to Newest</option>
-            </select>
+          <div class="relative inline-block">
+            <div>
+                <button type="button" id="dropdown-toggle" class="rounded-xl border border-button px-7 py-1 eWIMV flex items-center justify-between w-full">
+                    <span id="selected-option" class="mr-2">Filter</span>
+                    <svg class="w-4 h-4 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                    </svg>
+                </button>
+            </div>
+            <div id="dropdown-menu" class="z-10 absolute w-full mt-2 bg-white border border-button rounded-xl shadow-lg hidden">
+                <ul class="py-1">
+                    <li>
+                        <div id="newest-option" class="block px-4 py-2 hover:bg-gray-100 cursor-pointer">Newest</div>
+                    </li>
+                    <li>
+                        <div id="oldest-option" class="block px-4 py-2 hover:bg-gray-100 cursor-pointer">Oldest</div>
+                    </li>
+                </ul>
+            </div>
           </div>
         </div>
       </div>
       <div class="space-y-8 w-full">
         @foreach ($job_data as $job)
         <div class="relative flex justify-center items-center w-full h-40 rounded-xl shadow-custom px-4 lg:px-8 py-4 gap-8 lg:gap-9">
-          <svg   fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4 absolute top-4 right-3.5 text-bodyText stroke-2">
+          {{-- <svg   fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4 absolute top-4 right-3.5 text-bodyText stroke-2">
             <path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" />
-          </svg>
+          </svg> --}}
           <div class="flex justify-center items-center gap-5">
             <div class="w-[74px] h-[65px] bg-[#EBEBEB] rounded-xl"></div>
             <div class="flex justify-start items-start gap-2">
@@ -249,4 +285,50 @@
     </div>
   </div>
 </main>
+@section('scripts')
+  <script>
+    document.getElementById('dropdown-toggle').addEventListener('click', function () {
+        document.getElementById('dropdown-menu').classList.toggle('hidden');
+    });
+
+    // Hide the dropdown menu if clicked outside
+    document.addEventListener('click', function (event) {
+        const dropdownMenu = document.getElementById('dropdown-menu');
+        const dropdownToggle = document.getElementById('dropdown-toggle');
+
+        if (!dropdownMenu.contains(event.target) && !dropdownToggle.contains(event.target)) {
+            dropdownMenu.classList.add('hidden');
+        }
+    });
+    document.getElementById('newest-option').addEventListener('click', function() {
+    console.log('newest');
+    var form = document.createElement('form');
+    form.action = "{{ route('jobs') }}";
+    form.method = "GET";
+
+    var hiddenInput = document.createElement('input');
+    hiddenInput.type = "hidden";
+    hiddenInput.name = "filter";
+    hiddenInput.value = "newest";
+
+    form.appendChild(hiddenInput);
+    document.body.appendChild(form);
+    form.submit();
+  });
+  document.getElementById('oldest-option').addEventListener('click', function() {
+      var form = document.createElement('form');
+      form.action = "{{ route('jobs') }}";
+      form.method = "GET";
+
+      var hiddenInput = document.createElement('input');
+      hiddenInput.type = "hidden";
+      hiddenInput.name = "filter";
+      hiddenInput.value = "oldest";
+
+      form.appendChild(hiddenInput);
+      document.body.appendChild(form);
+      form.submit();
+  });
+  </script>
+@endsection
 @endsection

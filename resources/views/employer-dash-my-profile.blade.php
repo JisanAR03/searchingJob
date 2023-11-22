@@ -81,7 +81,7 @@
         </div>
         <div class="flex flex-col md:flex-row justify-around items-start md:items-center w-full gap-2 md:gap-4">
           <label for="" class="w-60 font-medium">Location</label>
-          <input type="text" class="input-class" placeholder="Type Location" name="Location" value="{{$user_data->Location}}">
+          <input type="text" class="input-class" placeholder="City,State,Country... or Remote" name="Location" value="{{$user_data->Location}}">
         </div>
         <div class="flex flex-col md:flex-row justify-around items-start md:items-center w-full gap-2 md:gap-4">
           <label for="" class="w-60 font-medium">Company Mission</label>

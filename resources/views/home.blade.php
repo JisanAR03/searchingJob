@@ -18,48 +18,32 @@
   </div>
   <div class="z-10 -mt-4 md:-mt-4 lg:-mt-14 absolute w-full">
     <div class=" w-11/12 md:max-w-[768px] lg:max-w-[1000px] xl:max-w-[1200px] shadow-custom flex flex-col md:flex-row items-center justify-center  gap-2 md:gap-1 xl:gap-4 rounded-xl bg-white py-8 px-1 lg:px-4 container mx-auto">
-      <div class="rounded-full border border-solid border-bodyText px-16 md:px-2 lg:px-12 py-2 text-center">
-        <select name="" id="" class="bg-white select2">I am looking for
-          <option class="text-black bg-white"> I am looking for </option>
-          <option class="text-black bg-white"> I am looking for job</option>
-          <option class="text-black bg-white"> I am looking for internship</option>
-          <option class="text-black bg-white"> I am looking for school</option>
-          <option class="text-black bg-white"> I am looking for college</option>
-          <option class="text-black bg-white"> I am looking for companies</option>
-          <option class="text-black bg-white"> I am looking for shop</option>
+      <div class="rounded-full border border-solid border-bodyText px-1 py-2 text-center">
+        <select name="work_type" id="work_type" class="bg-white px-16 md:px-2 lg:px-12 py-2 text-center select2">I am looking for
+          <option value="" class="text-black bg-white"> I am looking for </option>
+          @foreach($work_type_list as $work_type)
+          <option value="{{$work_type}}" class="text-black bg-white"> I am looking for {{$work_type}}</option>
+          @endforeach
         </select>
       </div>
-      <div class="rounded-full border border-solid border-bodyText px-12 md:px-2 lg:px-12 py-2 text-center">
-        <select name="" id="" class="bg-white select2">Choose job category
-          <option>Choose job category</option>
-          <option>Architect</option>
-          <option>Construction</option>
-          <option>Electrician</option>
-          <option>Civil Engineer</option>
-          <option>Surveyor</option>
-          <option>Photographer</option>
-          <option>Editor</option>
-          <option>Graphic Designer</option>
-          <option>Reporter</option>
+      <div class="rounded-full border border-solid border-bodyText px-1 py-2 text-center">
+        <select name="category" id="category" class="bg-white px-12 md:px-2 lg:px-12 py-2 select2">Choose job category
+          <option value="">Choose job category</option>
+          @foreach($catagory_list as $category)
+          <option value="{{$category}}">{{$category}}</option>
+          @endforeach
         </select>
       </div>
-      <div class="rounded-full border border-solid border-bodyText px-16 md:px-2 xl:px-12 py-2 text-center">
-        <select name="" id="" class="bg-white select2"> Choose Location 
-          <option>Choose Location</option>
-          <option>Alabama</option>
-          <option>Alaska</option>
-          <option>Arizona</option>
-          <option>Arkansas</option>
-          <option>California</option>
-          <option>Colorado</option>
-          <option>Connecticut</option>
-          <option>Delaware</option>
-          <option>Florida</option>
-          <option>Georgia</option>
+      <div class="rounded-full border border-solid border-bodyText px-1 py-2 text-center">
+        <select name="location" id="location" class="bg-white px-16 md:px-2 xl:px-12 py-2 select2"> Choose Location 
+          <option value="">Choose Location</option>
+          @foreach($location_list as $location)
+          <option value="{{$location}}">{{$location}}</option>
+          @endforeach
         </select>
       </div>
       <div class="">
-        <button class="rounded-full bg-button px-24 md:px-4 lg:px-8 xl:px-16 py-3 text-center text-white"> Show Jobs </button>
+        <button type="submit" id="search_job" class="rounded-full bg-button px-24 md:px-4 lg:px-8 xl:px-16 py-3 text-center text-white"> Show Jobs </button>
       </div>
     </div>
   </div>
@@ -98,6 +82,7 @@
     </div>
   </section>
   <!-- work carousel -->
+  @if(isset($employer_data))
   <section class="mt-12 md:mt-20">
     <div class="space-y-14">
       <div class="fdc-imv flex items-center justify-center">
@@ -116,49 +101,26 @@
         </div>
       </div>
       <div class="regular red-mimv flex items-center justify-between ">
-        <a class='cusCSLCLS' href='{{route("employer")}}'>
+        @foreach($employer_data as $employer)
+        <form action="{{route('employer')}}" method="POST">@csrf
+          <input type="hidden" name="id" value="{{$employer->EmployerID}}">
+        <button type="submit" class='cusCSLCLS'>
           <div class="shadow-custom crusel-cus-cls w-64 space-y-5 rounded-md py-4 px-6">
             <div class="flex items-center justify-start space-x-3.5 pt-3">
-              <img src="/src/img/work1.png" alt="" />
-              <p class="font-normal">City of Melbourne</p>
+              <img class="w-[80px] h-[70px]" src="{{ asset('src/upload_image/'.$employer->Logo) }}" alt="" />
+              <p class="font-normal">{{$employer->CompanyName}}</p>
             </div>
-            <p class="text-sm"> Lorem Ipsum is simply dummy text of the industry. </p>
-            <p class="w-fit rounded-full bg-jobs px-4 py-2 font-inter text-xs"> 27 jobs </p>
+            <p class="text-sm">{!! Illuminate\Support\Str::words($employer->AboutCompany, 10, '...') !!}
+            </p>
+            <p class="w-fit rounded-full bg-jobs px-4 py-2 font-inter text-xs"> {{$employer->jobpost}} jobs </p>
           </div>
-        </a>
-        <a class='cusCSLCLS' href='{{route("employer")}}'>
-          <div class="shadow-custom crusel-cus-cls w-64 space-y-5 rounded-md py-4 px-6">
-            <div class="flex items-center justify-start space-x-3.5 pt-3">
-              <img src="/src/img/work2.png" alt="" />
-              <p class="font-normal">Lovisa</p>
-            </div>
-            <p class="text-sm"> Lorem Ipsum is simply dummy text of the industry. </p>
-            <p class="w-fit rounded-full bg-jobs px-4 py-2 font-inter text-xs"> 17 jobs </p>
-          </div>
-        </a>
-        <a class='cusCSLCLS' href='{{route("employer")}}'>
-          <div class="shadow-custom crusel-cus-cls w-64 space-y-5 rounded-md py-4 px-6">
-            <div class="flex items-center justify-start space-x-3.5 pt-3">
-              <img src="/src/img/work3.png" alt="" />
-              <p class="font-normal">Pexa</p>
-            </div>
-            <p class="text-sm"> Lorem Ipsum is simply dummy text of the industry. </p>
-            <p class="w-fit rounded-full bg-jobs px-4 py-2 font-inter text-xs"> 35 jobs </p>
-          </div>
-        </a>
-        <a class='cusCSLCLS' href='{{route("employer")}}'>
-          <div class="shadow-custom crusel-cus-cls w-64 space-y-5 rounded-md py-4 px-6">
-            <div class="flex items-center justify-start space-x-3.5 pt-3">
-              <img src="/src/img/work4.png" alt="" />
-              <p class="font-normal">Auto Parts Group</p>
-            </div>
-            <p class="text-sm"> Lorem Ipsum is simply dummy text of the industry. </p>
-            <p class="w-fit rounded-full bg-jobs px-4 py-2 font-inter text-xs"> 42 jobs </p>
-          </div>
-        </a>
+        </button>
+        </form>
+        @endforeach
       </div>
     </div>
   </section>
+  @endif
   <!-- categories -->
   <section class="no-mimv mt-32">
     <div class="no-pfmv space-y-6 lg:text-center py-10 lg:p-0">
@@ -217,4 +179,19 @@
     </div>
   </section>
 </main>
+@section('scripts')
+  <script>
+    document.getElementById('search_job').addEventListener('click', function() {
+    var workType = document.getElementById('work_type').value;
+    var category = document.getElementById('category').value;
+    var location = document.getElementById('location').value;
+    
+    // Construct the URL with selected values
+    var url = "{{ route('jobs') }}?work_type=" + encodeURIComponent(workType) + "&category=" + encodeURIComponent(category) + "&location=" + encodeURIComponent(location);
+    
+    // Navigate to the URL
+    window.location.href = url;
+  });
+  </script>
+@endsection
 @endsection

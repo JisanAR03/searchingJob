@@ -13,6 +13,9 @@ class JobSeeker extends Model
     protected $table = 'JobSeekers';
 
     protected $fillable = [
+        'SocialId',
+        'verification_token',
+        'is_verified',
         'FullName',
         'Email',
         'PasswordHash',
@@ -30,5 +33,9 @@ class JobSeeker extends Model
         'Resume',
         'AvailableForWork',
         'MessagePermit',
+        'SubsDay',
+        'SubsSrtDate',
+        'SubsEndDate',
+        'SubsType',
     ];
 }

@@ -54,7 +54,6 @@ class JSDMyProfileController extends Controller
             if($request->hasFile('ProfilePhoto')){
                 $profile_photo_file = $request->file('ProfilePhoto');
                 $profile_photo_exten = $profile_photo_file->getClientOriginalExtension();
-            
                 if(!in_array($profile_photo_exten, ['png', 'jpg', 'jpeg', 'gif', 'svg'])) {
                     return redirect()->route('job-seeker-my-profile')->with('error', 'Invalid Profile Photo File');
                 }

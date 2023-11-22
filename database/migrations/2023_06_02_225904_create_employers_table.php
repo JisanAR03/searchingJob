@@ -13,6 +13,9 @@ return new class extends Migration
     {
         Schema::create('Employers', function (Blueprint $table) {
             $table->integer('EmployerID')->nullable(false)->autoIncrement();
+            $table->string('verification_token')->nullable();
+            $table->boolean('is_verified')->default(false);
+            $table->string('SocialId', 255)->nullable();
             $table->string('CompanyName', 255)->nullable();
             $table->string('BusinessEmail', 50)->nullable();
             $table->string('PasswordHash', 256)->nullable();
@@ -27,6 +30,10 @@ return new class extends Migration
             $table->string('LinkedInURL', 255)->nullable();
             $table->string('PhoneNumber', 20)->nullable();
             $table->string('Location', 255)->nullable();
+            $table->integer('SubsDay')->nullable();
+            $table->dateTime('SubsSrtDate')->nullable();
+            $table->dateTime('SubsEndDate')->nullable();
+            $table->integer('SubsType')->default(0);
             $table->timestamps();
         });
     }

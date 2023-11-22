@@ -26,13 +26,13 @@
           <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
         </svg> Close
       </p>
-      <form action="" class="w-full">
+      <form action="{{route('employers')}}" method="GET" class="w-full">
         <div class="space-y-5 px-8 md:px-4 lg:px-14">
           <div class="space-y-3">
             <div class="flex justify-between items-center">
               <label for="" class="font-medium" required>Search Company Name</label>
             </div>
-            <input type="text" class="input-class shadow-custom border-0" placeholder="Search By Job Title Or Job ID">
+            <input type="text" name="CompanyName" class="input-class shadow-custom border-0" placeholder="Type Company name here...">
           </div>
           <div class="space-y-3">
             <div class="flex justify-between items-center">
@@ -41,11 +41,14 @@
                 <path stroke-linecap="round" stroke-linejoin="round" />
               </svg>
             </div>
-            <div>
-              <input type="checkbox" name="" id="work" class="">
+            {{-- <div>
+              <input type="checkbox" name="remote" id="work" class="">
               <label for="work" class="text-sm text-bodyText font-light">Remote</label>
+            </div> --}}
+            <div class="mb-4">
+              <input type="text" placeholder="City,State,Country..." name="location" id="location" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 h-10 px-4 sm:text-sm">
             </div>
-            <select name="" id="" class="input-class shadow-custom border-0 font-medium text-sm text-bodyText select2">
+            {{-- <select name="" id="" class="input-class shadow-custom border-0 font-medium text-sm text-bodyText select2">
               <option>Country</option>
               <option>Alabama</option>
               <option>Alaska</option>
@@ -57,8 +60,8 @@
               <option>Delaware</option>
               <option>Florida</option>
               <option>Georgia</option>
-            </select>
-            <select name="" id="" class="input-class shadow-custom border-0 font-medium text-sm text-bodyText select2">
+            </select> --}}
+            {{-- <select name="" id="" class="input-class shadow-custom border-0 font-medium text-sm text-bodyText select2">
               <option>State</option>
               <option>Alaska</option>
               <option>Arizona</option>
@@ -79,7 +82,7 @@
               <option value="">Auburn</option>
               <option value="">Bessemer</option>
               <option value="">Birmingham</option>
-            </select>
+            </select> --}}
           </div>
         </div>
         <div class="p-4 flex justify-center">
@@ -90,13 +93,13 @@
     <div class="flex flex-col space-y-3 w-full md:w-4/6">
       <div class="flex justify-end mb-9">
         <div class="flex flex-col md:flex-row justify-between items-start md:items-center w-full gap-4">
-          <label for="" class="text-base font-medium">Showing 1-10 of 208 result</label>
-          <div class="space-x-5 fWIMV">
+          <label for="" class="text-base font-medium">Showing {{ $employer_data->firstItem() }} - {{ $employer_data->lastItem() }} of {{ $employer_data->total() }} result</label>
+          {{-- <div class="space-x-5 fWIMV">
             <label for="" class="text-base font-medium">Sort By</label>
             <select name="" id="" class="rounded-xl border border-button px-7 py-1 eWIMV select2">
               <option value="">Default</option>
             </select>
-          </div>
+          </div> --}}
         </div>
       </div>
       <div class="space-y-3 w-full">

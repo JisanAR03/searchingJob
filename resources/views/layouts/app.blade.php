@@ -12,23 +12,6 @@
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/css/select2.min.css" integrity="sha512-arEjGlJIdHpZzNfZD2IidQjDZ+QY9r4VFJIm2M/DhXLjvvPyXFj+cIotmo0DLgvL3/DOlIaEDwzEiClEPQaAFQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <script src="https://cdn.jsdelivr.net/npm/alpinejs@2.8.2/dist/alpine.js"></script>
-    <script src="https://js.pusher.com/7.2/pusher.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/laravel-echo@1.11.0/dist/echo.min.js"></script>
-
-    <script>
-  
-      // Enable pusher logging - don't include this in production
-      Pusher.logToConsole = true;
-  
-      var pusher = new Pusher('375a6733639011335ca3', {
-        cluster: 'ap2'
-      });
-  
-      var channel = pusher.subscribe('chat_sys');
-      channel.bind('chat_syss', function(data) {
-        alert(JSON.stringify(data));
-      });
-    </script>
     @vite('resources/css/app.css')
   </head>
   <body>
@@ -141,6 +124,22 @@
           <li>
             <a href="#" class="text-[22px] font-medium "> Resources </a>
           </li>
+          @if(session()->has('employer_session') || session()->has('seeker_session'))
+          <li>
+            <div class="dropdown">
+              <button class="forEmployer dropbtn flex items-center text-[22px] md:text-base font-medium md:font-normal sCLSFDD"> Profile Detail <svg   fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="ml-2 h-5 w-5 font-bold">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5"/>
+                </svg>
+              </button>
+              <div class="employerDropdown dropdown-content">
+                <a href="@if(session()->has('seeker_session')){{route('job-seeker-my-application')}}@else{{route('employers-my-job')}}@endif">Profile</a>
+                <form action="{{route('logout')}}" method="POST">@csrf
+                  <button type="submit" class="mb-2">Logout</button>
+                </form>
+              </div>
+            </div>
+          </li>
+          @else
           <li>
             <div class="dropdown">
               <button class="forEmployer dropbtn flex items-center text-[22px] md:text-base font-medium md:font-normal sCLSFDD"> For Employers <svg   fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="ml-2 h-5 w-5 font-bold">
@@ -165,6 +164,7 @@
               </div>
             </div>
           </li>
+          @endif
         </ul>
       </nav>
     </div>

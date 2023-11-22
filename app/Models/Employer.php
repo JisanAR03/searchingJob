@@ -14,6 +14,9 @@ class Employer extends Model
     use HasFactory;
     protected $primaryKey = 'EmployerID';
     protected $fillable = [
+        'SocialId',
+        'verification_token',
+        'is_verified',
         'CompanyName',
         'BusinessEmail',
         'PasswordHash',
@@ -28,5 +31,9 @@ class Employer extends Model
         'LinkedInURL',
         'PhoneNumber',
         'Location',
+        'SubsDay',
+        'SubsSrtDate',
+        'SubsEndDate',
+        'SubsType',
     ];
 }

@@ -34,14 +34,18 @@
             <p class="text-sm">For individuals or teams just getting started with project management.</p>
           </div>
           <div class="space-y-2">
-            <h3 class="font-bold text-black text-[28px]">$0/Month</h3>
+            <h3 class="font-bold text-black text-[28px]">$1/Month</h3>
             <p class="text-xs">Free forever</p>
             <ul class="pricing_ul">
               <li class="text-sm">No access to the SaaS network</li>
             </ul>
           </div>
         </div>
+        @if(session()->has('employer_session') || session()->has('seeker_session'))
+        <a href="{{ route('stripe', ['amount' => 'Basic']) }}"><button class="btn-white border-black py-2 px-4 w-full">Get Started</button></a>
+        @else
         <button class="btn-white border-black py-2 px-4 w-full">Get Started</button>
+        @endif
       </div>
       <div class="flex flex-col justify-start rounded-xl border border-1 border-button border-t-[15px] border-t-button px-5 py-2 space-y-10 h-[400px]">
         <div class="space-y-6">
@@ -50,7 +54,7 @@
             <p class="text-sm">For individuals or teams just getting started with project management.</p>
           </div>
           <div class="space-y-2">
-            <h3 class="font-bold text-black text-[28px]">$250/Month</h3>
+            <h3 class="font-bold text-black text-[28px]">$25/Month</h3>
             <p class="text-sm">Per user, per month billed annually US$ 13.49 billed monthly</p>
             <ul class="pricing_ul">
               <li class="text-sm">Post unlimited jobs</li>
@@ -58,7 +62,11 @@
             </ul>
           </div>
         </div>
+        @if(session()->has('employer_session') || session()->has('seeker_session'))
+        <a href="{{ route('stripe', ['amount' => 'Premium']) }}"><button class="rounded-xl bg-button border border-solid border-button text-white py-2 px-4 w-full">Get Started</button></a>
+        @else
         <button class="rounded-xl bg-button border border-solid border-button text-white py-2 px-4 w-full">Get Started</button>
+        @endif
       </div>
       <div class="flex flex-col justify-start rounded-xl border border-1 border-button px-5 py-5 space-y-5 h-[400px]">
         <div class="space-y-6">
@@ -67,7 +75,7 @@
             <p class="text-sm">For individuals or teams just getting started with project management.</p>
           </div>
           <div class="space-y-2">
-            <h3 class="font-bold text-black text-[28px]">$500/Month</h3>
+            <h3 class="font-bold text-black text-[28px]">$50/Month</h3>
             <p class="text-sm">Per user, per month billed annually US$ 30.49 billed monthly</p>
             <ul class="pricing_ul">
               <li class="text-sm">Post unlimited jobs</li>
@@ -76,7 +84,11 @@
             </ul>
           </div>
         </div>
+        @if(session()->has('employer_session') || session()->has('seeker_session'))
+        <a href="{{ route('stripe', ['amount' => 'Enterprise']) }}"><button class="btn-white border-black py-2 px-4 w-full">Get Started</button></a>
+        @else
         <button class="btn-white border-black py-2 px-4 w-full">Get Started</button>
+        @endif
       </div>
     </div>
   </section>

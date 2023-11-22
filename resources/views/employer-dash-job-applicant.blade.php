@@ -9,7 +9,7 @@
   <div class="flex justify-between items-start w-full gap-4">
     @include('layouts.nav_for_profile')
     <div class="w-full md:w-2/3 xl:w-3/4 shadow-custom">
-      <div class="p-4 shadow-custom space-y-6">
+      {{-- <div class="p-4 shadow-custom space-y-6">
         <div class="flex justify-between items-center">
           <select name="" id="" class="text-xs text-bodyText rounded-lg border border-button px-7 py-1 select2">
             <option value="">Filter by job</option>
@@ -19,10 +19,10 @@
           </select>
         </div>
         <div class="flex justify-between items-center text-button">
-          {{-- <h6 class="font-semibold">Junior Grapic designer web</h6> --}}
-          {{-- <p class="font-semibold text-xs mr-8">Total : {{count($application_data)}}</p> --}}
+          <h6 class="font-semibold">Junior Grapic designer web</h6>
+          <p class="font-semibold text-xs mr-8">Total : {{count($application_data)}}</p>
         </div>
-      </div>
+      </div> --}}
       <!-- all applicants -->
       <div class=" p-3 flex flex-col space-y-3">
         <!-- single applicant -->

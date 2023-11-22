@@ -20,6 +20,10 @@ class ApplyFormController extends Controller
         return view('apply-form');
     }
     public function developerlook_apply_form_submit(Request $request){
+        // seeker session check
+        if(!(session()->has('seeker_session'))){
+            return redirect()->route('home')->with('error', 'Please Login Seeker account to Continue');
+        }
         try{
             if($request->hasFile('CoverLetter')) {
                 $cover_file = $request->file('CoverLetter');

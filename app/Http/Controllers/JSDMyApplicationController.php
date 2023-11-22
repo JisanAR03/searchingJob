@@ -8,12 +8,20 @@ use App\Models\JobApplication;
 
 class JSDMyApplicationController extends Controller
 {
-    public function developerlook_index(){
-        $application_data = JobApplication::query()->where('JobSeekerID', session('seeker_session'))->orderBy('JobApplicationID')->paginate(5);
+    public function developerlook_index(Request $request){
+        $filter_data = $request->input('filter');
+        if($filter_data == 'newest'){
+            $application_data = JobApplication::query()->where('JobSeekerID', session('seeker_session'))->orderByDesc('created_at')->paginate(5);
+        }
+        elseif($filter_data == 'oldest'){
+            $application_data = JobApplication::query()->where('JobSeekerID', session('seeker_session'))->orderBy('created_at')->paginate(5);
+        }
+        else{
+        $application_data = JobApplication::query()->where('JobSeekerID', session('seeker_session'))->orderByDesc('created_at')->paginate(5);
+        }
         foreach($application_data as $application){
             $job_data = JobPost::query()->where('JobPostID', $application->JobPostID)->first();
             $application->JobTitle = $job_data->JobTitle;
-
         }
         return view('job-seeker-dash-my-application', compact('application_data'));
     }

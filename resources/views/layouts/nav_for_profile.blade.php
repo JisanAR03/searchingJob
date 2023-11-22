@@ -5,6 +5,24 @@
           <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
         </svg> Close
       </li>
+      {{-- the whole li of super admin  --}}
+      @if(session()->has('super_admin_session'))
+      <li class="@if(request()->routeIs('mailSystem')) shadow-custom bg-primary/10 border-r-8 border-r-primary @endif w-full">
+        <a href="{{route('mailSystem')}}" class="flex justify-start items-center gap-3 h-16 w-full px-8">
+          <div class="">
+            <svg   fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M12 7.5h1.5m-1.5 3h1.5m-7.5 3h7.5m-7.5 3h7.5m3-9h3.375c.621 0 1.125.504 1.125 1.125V18a2.25 2.25 0 01-2.25 2.25M16.5 7.5V18a2.25 2.25 0 002.25 2.25M16.5 7.5V4.875c0-.621-.504-1.125-1.125-1.125H4.125C3.504 3.75 3 4.254 3 4.875V18a2.25 2.25 0 002.25 2.25h13.5M6 7.5h3v3H6v-3z" />
+            </svg>
+          </div>
+          <div>
+            <p class="font-semibold">My Mail Details</p>
+            <p class="text-sm font-medium text-bodyText hidden md:block">change your mail system</p>
+          </div>
+        </a>
+      </li>
+      @endif
+      {{-- the whole li of super admin  --}}
+      @if(!session()->has('super_admin_session'))
       @if(session()->has('seeker_session'))
       <li class="@if(request()->routeIs('job-seeker-my-application')) shadow-custom bg-primary/10 border-r-8 border-r-primary @endif w-full">
         <a href="{{route('job-seeker-my-application')}}" class="flex justify-start items-center gap-3 h-16 w-full px-8">
@@ -61,8 +79,8 @@
           </div>
         </a>
       </li>
-      <li class="@if(request()->routeIs('employers-messages') || request()->routeIs('job-seeker-message')) shadow-custom bg-primary/10 border-r-8 border-r-primary @endif w-full">
-        <a href="@if(session()->has('employer_session')){{route('employers-messages')}}@else{{route('job-seeker-message')}}@endif" class="flex justify-start items-center gap-3 h-16 w-full px-8">
+      <li class="@if(request()->routeIs('job-seeker-message') || request()->routeIs('job-seeker-message') || request()->routeIs('message-view') || request()->routeIs('message-view')) shadow-custom bg-primary/10 border-r-8 border-r-primary @endif w-full">
+        <a href="@if(session()->has('employer_session')){{route('job-seeker-message')}}@else{{route('job-seeker-message')}}@endif" class="flex justify-start items-center gap-3 h-16 w-full px-8">
           <div class="">
             <svg   fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
               <path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75" />
@@ -70,7 +88,7 @@
           </div>
           <div>
             <p class="font-semibold">Massage</p>
-            <p class="text-sm font-medium text-bodyText hidden md:block">Edit personal details</p>
+            <p class="text-sm font-medium text-bodyText hidden md:block">Showing messages</p>
           </div>
         </a>
       </li>
@@ -130,5 +148,6 @@
           </div>
         </a>
       </li>
+      @endif
     </ul>
   </nav>

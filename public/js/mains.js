@@ -130,7 +130,7 @@ jQuery(document).ready(function() {
 			}
 		})
 	})
-	jQuery('.message-box').hide();
+	// jQuery('.message-box').hide();
 	jQuery('.user').click(function() {
 		jQuery('.all-user').toggle()
 		jQuery('.message-box').toggle()

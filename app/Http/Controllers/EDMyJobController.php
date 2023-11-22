@@ -8,9 +8,18 @@ use App\Models\JobApplication;
 
 class EDMyJobController extends Controller
 {
-    public function developerlook_index(){
+    public function developerlook_index(Request $request){
         if(session()->has('employer_session')){
-            $job_data = JobPost::query()->where('EmployerID', session('employer_session'))->orderBy('JobPostID')->paginate(5);
+            $filter_data = $request->input('filter');
+            if($filter_data == 'newest'){
+                $job_data = JobPost::query()->where('EmployerID', session('employer_session'))->orderByDesc('PostDate')->paginate(5);
+            }
+            elseif($filter_data == 'oldest'){
+                $job_data = JobPost::query()->where('EmployerID', session('employer_session'))->orderBy('PostDate')->paginate(5);
+            }
+            else{
+                $job_data = JobPost::query()->where('EmployerID', session('employer_session'))->orderByDesc('PostDate')->paginate(5);
+            }
             foreach($job_data as $job){
                 $application_form_count = JobApplication::where('JobPostID', $job->JobPostID)->count();
                 $job->ApplicationFormCount = $application_form_count;

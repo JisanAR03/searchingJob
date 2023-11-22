@@ -9,8 +9,8 @@
           <img src="/src/upload_image/{{$seeker->ProfilePhoto}}" alt="" srcset="" class="w-[67px] h-[67ppx]">
           <h6 class="text-lg">{{$seeker->FullName}}</h6>
         </div>
-        <div>
-          <button class="bg-button rounded-xl text-white py-3 px-4 w-40">Send Message</button>
+        <div><a href="{{ url('/') }}/message/JobSeekers/{{$seeker->JobSeekerID}}">
+          <button class="bg-button rounded-xl text-white py-3 px-4 w-40">Send Message</button></a>
         </div>
       </div>
       <div class="block md:hidden w-full md:w-5/12 p-10 bg-[#FAFAFA] space-y-5">

@@ -13,6 +13,9 @@ return new class extends Migration
     {
         Schema::create('JobSeekers', function (Blueprint $table) {
             $table->integer('JobSeekerID')->nullable(false)->autoIncrement();
+            $table->string('verification_token')->nullable();
+            $table->boolean('is_verified')->default(false);
+            $table->string('SocialId', 255)->nullable();
             $table->string('FullName', 255)->nullable();
             $table->string('Email', 50)->nullable();
             $table->string('PasswordHash', 256)->nullable();
@@ -30,6 +33,10 @@ return new class extends Migration
             $table->string('Resume', 255)->nullable();
             $table->tinyInteger('AvailableForWork')->nullable();
             $table->tinyInteger('MessagePermit')->nullable();
+            $table->integer('SubsDay')->nullable();
+            $table->dateTime('SubsSrtDate')->nullable();
+            $table->dateTime('SubsEndDate')->nullable();
+            $table->integer('SubsType')->default(0);
             $table->timestamps();
         });
     }

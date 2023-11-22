@@ -10,18 +10,31 @@
     @include('layouts.nav_for_profile')
     <div class="w-full md:w-4/6 xl:w-3/4 shadow-custom md:pl-8 pt-8 flex flex-col rounded space-y-3 h-fit">
       <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-2 px-2 md:px-0">
-        <div class="relative fWIMV">
+        {{-- <div class="relative fWIMV">
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="absolute top-3 left-2 w-4 h-4 stroke-2">
             <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
           </svg>
           <input type="text" class="bg-gradient h-10 w-40 pl-8 rounded-lg focus:outline-none text-xs fWIMV" name="" placeholder="Search contacts....">
-        </div>
-        <div class="flex justify-between items-center w-full md:w-fit space-x-5 mr-8 md:px-0 fWIMV mTFMV mBFMV">
-          <label for="" class="text-base font-medium">Sort By</label>
-          <select name="" id="" class="rounded-xl border border-button px-7 py-1 eWIMV select2">
-            <option value="">Newest</option>
-            <option value="">Oldest</option>
-          </select>
+        </div> --}}
+        <div class="relative inline-block">
+          <div>
+              <button type="button" id="dropdown-toggle" class="rounded-xl border border-button px-7 py-1 eWIMV flex items-center justify-between w-full">
+                  <span id="selected-option" class="mr-2">Filter</span>
+                  <svg class="w-4 h-4 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                  </svg>
+              </button>
+          </div>
+          <div id="dropdown-menu" class="absolute w-full mt-2 bg-white border border-button rounded-xl shadow-lg hidden">
+              <ul class="py-1">
+                  <li>
+                      <div id="newest-option" class="block px-4 py-2 hover:bg-gray-100 cursor-pointer">Newest</div>
+                  </li>
+                  <li>
+                      <div id="oldest-option" class="block px-4 py-2 hover:bg-gray-100 cursor-pointer">Oldest</div>
+                  </li>
+              </ul>
+          </div>
         </div>
       </div>
       <!-- <div><div class="flex justify-between items-center shadow-custom p-4 text-button text-xs"><div class=""><span></span>Title</span></div><div class="flex justify-start items-center gap-20"><div class=""><span>Applicants</span></div><div class=""><span>Created & expired</span></div><div class=""><span>Status</span></div><div class=""><span>Action</span></div></div></div><div class="flex justify-between items-center px-4 py-5 border-b border-b-[#A7A7A7]"><div><div class="flex justify-start items-center gap-3"><div class="w-9 h-9 bg-bodyText rounded-md"></div><div class="space-y-1"><p class="text-xs font-medium">Finance Manager & Health</p><div class="flex justify-start items-center gap-4"><div class="flex justify-center items-center"><svg
@@ -188,4 +201,50 @@
     </div>
   </div>
 </main>
+@section('scripts')
+  <script>
+    document.getElementById('dropdown-toggle').addEventListener('click', function () {
+        document.getElementById('dropdown-menu').classList.toggle('hidden');
+    });
+
+    // Hide the dropdown menu if clicked outside
+    document.addEventListener('click', function (event) {
+        const dropdownMenu = document.getElementById('dropdown-menu');
+        const dropdownToggle = document.getElementById('dropdown-toggle');
+
+        if (!dropdownMenu.contains(event.target) && !dropdownToggle.contains(event.target)) {
+            dropdownMenu.classList.add('hidden');
+        }
+    });
+    document.getElementById('newest-option').addEventListener('click', function() {
+    console.log('newest');
+    var form = document.createElement('form');
+    form.action = "{{ route('employers-my-job') }}";
+    form.method = "GET";
+
+    var hiddenInput = document.createElement('input');
+    hiddenInput.type = "hidden";
+    hiddenInput.name = "filter";
+    hiddenInput.value = "newest";
+
+    form.appendChild(hiddenInput);
+    document.body.appendChild(form);
+    form.submit();
+  });
+  document.getElementById('oldest-option').addEventListener('click', function() {
+      var form = document.createElement('form');
+      form.action = "{{ route('employers-my-job') }}";
+      form.method = "GET";
+
+      var hiddenInput = document.createElement('input');
+      hiddenInput.type = "hidden";
+      hiddenInput.name = "filter";
+      hiddenInput.value = "oldest";
+
+      form.appendChild(hiddenInput);
+      document.body.appendChild(form);
+      form.submit();
+  });
+  </script>
+@endsection
 @endsection
